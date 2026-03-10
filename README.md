@@ -1,4 +1,4 @@
-# learnings
+# Claude Skills Creation
 various projects, artifacts related to GenAI area
 
 ## GenAI Weekly Intel
