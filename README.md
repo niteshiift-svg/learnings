@@ -21,6 +21,6 @@ Each player section follows a two-layer format:
 Outputs are auto-saved to `nitesh-notes/genai-intel/` with dated filenames.
 
 ### How to run
-- **/genai-weekly-intel
-- **/genai-weekly-intel single-player: Anthropic
-- **/genai-weekly-intel + LinkedIn post
+- /genai-weekly-intel
+- /genai-weekly-intel single-player: Anthropic
+- /genai-weekly-intel + LinkedIn post
