@@ -1,6 +1,11 @@
 # Claude Skills Creation
 various projects, artifacts related to GenAI area
 
+
+#	Skill	Trigger	What It Does
+1	GenAI Weekly Intel	"GenAI weekly brief" / "what happened in AI this week"	Produces a delta-tracked weekly intelligence brief across 10 AI players with regulatory, benchmark, and LinkedIn post add-ons
+2	Book Summary & Reflection	"book summary" / "summarize chapter"	Generates evidence-grounded chapter summaries with 5-part structure and memory anchors for precise recall
+
 ## 1- GenAI Weekly Intel
 
 A Claude Code skill that produces a weekly intelligence brief tracking the GenAI competitive landscape across major players — OpenAI, Anthropic, Google, Microsoft, AWS, xAI, Meta, Salesforce, Adobe, and others.
