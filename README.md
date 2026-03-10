@@ -1,7 +1,7 @@
 # Claude Skills Creation
 various projects, artifacts related to GenAI area
 
-## GenAI Weekly Intel
+## 1- GenAI Weekly Intel
 
 A Claude Code skill that produces a weekly intelligence brief tracking the GenAI competitive landscape across major players — OpenAI, Anthropic, Google, Microsoft, AWS, xAI, Meta, Salesforce, Adobe, and others.
 
@@ -27,7 +27,7 @@ Outputs are auto-saved to `nitesh-notes/genai-intel/` with dated filenames.
 
 
 
-## Book Summary & Reflection
+## 2- Book Summary & Reflection
 
 A Claude Code skill for deep, evidence-grounded chapter-by-chapter book summaries. Built for non-fiction readers who want to reconstruct arguments from memory, not just collect takeaways.
 
