@@ -24,3 +24,38 @@ Outputs are auto-saved to `nitesh-notes/genai-intel/` with dated filenames.
 - /genai-weekly-intel
 - /genai-weekly-intel single-player: Anthropic
 - /genai-weekly-intel + LinkedIn post
+
+
+
+## Book Summary & Reflection
+
+A Claude Code skill for deep, evidence-grounded chapter-by-chapter book summaries. Built for non-fiction readers who want to reconstruct arguments from memory, not just collect takeaways.
+
+### What it does
+- **Chapter summaries** — structured output per chapter on demand
+- **Two depth modes** — Detailed (richer mechanism, 5 memory anchors) or Summarized (compressed, 3 anchors)
+- **Full-book synthesis** — optional, only when explicitly requested
+- **Export to file** — appends all chapters to one rolling file per book
+
+### Output structure per chapter
+Each chapter follows a 5-part format:
+1. **Core Claim** — the central argument in 2-3 sentences
+2. **Mechanism** — how ideas moved, who funded them, who resisted, how they spread
+3. **Evidence** — named people, dates, places, primary texts, institutions
+4. **Argument Flow** — how this chapter advances the book's overall thesis
+5. **Memory Anchors** — 3-5 precise recall points to reconstruct the argument
+
+Outputs are saved to `nitesh-notes/books/<BookName>_summary_<YYYY-MM-DD>.md`.
+
+### How to run
+/book-summary-reflection
+/book-summary-reflection Inglorious Empire, Chapter 3, detailed
+/book-summary-reflection same book, Chapter 4, summarized
+
+
+
+### Design principles
+- Strictly grounded in the book's content — no generic inference or modern analogies added
+- Named specifics only — no vague references ("several historians", "many examples")
+- Mechanism over themes — explains how things worked, not just what happened
+- Never summarizes chapters you didn't ask for
