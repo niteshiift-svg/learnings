@@ -5,6 +5,9 @@ description: Summarize and reflect on books chapter-by-chapter with strict evide
 
 # Book Summary & Reflection
 
+**Author:** Nitesh Luthra
+**Version:** 1.0
+
 ## Trigger
 Activate when the user says "summarize this book", "book summary", "chapter summary", "summarize chapter", "book notes", "reading reflection", or "let's work on [book title]".
 
