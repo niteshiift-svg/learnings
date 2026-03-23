@@ -5,6 +5,9 @@ description: Produce a weekly GenAI intelligence brief focused on hyperscalers a
 
 # GenAI Weekly Intel
 
+**Author:** Nitesh Luthra
+**Version:** 1.1
+
 ## Trigger
 Activate when the user asks for:
 - "GenAI weekly brief", "weekly GenAI update", "GenAI news this week"
@@ -106,10 +109,31 @@ Before generating any output, check for the most recent saved brief in `nitesh-n
 - `[NO CHANGE]` — player or item unchanged; one-line only, no full section
 
 ### Step 1: Define Scope
-- Default window: previous 7 days
-- If user specifies dates, use those
-- If single-player mode: lock to that player only
-- Confirm scope before generating if ambiguous
+
+**Always ask this first — before generating any output:**
+
+Present the following numbered list and ask the user to pick:
+
+```
+Which players do you want to cover this week?
+
+1. OpenAI
+2. Anthropic / Claude
+3. Google / Gemini
+4. Microsoft / Copilot
+5. AWS / Amazon
+6. xAI / Grok
+7. Meta AI
+8. Others (Salesforce, Adobe, and notable emerging players)
+9. All of the above
+
+Reply with a number or numbers (e.g. "1, 3" or "9 for all").
+```
+
+- If the user already specified a player in their trigger message, skip this question and proceed directly
+- If the user picks a single number: activate Mode 2 (Single-Player)
+- If the user picks multiple numbers or "9": activate Mode 1 (Full Weekly) scoped to selected players
+- Default time window: previous 7 days unless user specifies dates
 
 ### Step 2: Gather Source Material
 - Primary sources first: official blogs, release notes, docs, company announcements
@@ -180,6 +204,42 @@ Rules:
 - If a score is unavailable or unverified: write "Not disclosed"
 - Add a 1-sentence interpretation below the table: what the scores collectively signal about capability shifts this week
 
+### Step 3d: Legal, Privacy & OEC Implications
+
+Always include in full mode. Include in single-player mode only if relevant to that player.
+
+This section is written for Legal, Privacy, and Office of Ethics & Compliance (OEC) audiences — not for technologists. Surface signals that have direct bearing on enterprise risk, data handling obligations, vendor contracts, employee use policies, and regulatory exposure.
+
+Cover the following lenses:
+
+- **Data Privacy & HIPAA**: Any AI product updates that change how patient data, PII, or PHI is handled, stored, or processed. Flag vendor changes to data retention, training data use, opt-out policies, or cross-border data flows.
+- **Employee AI Use Policy**: Any developments that affect acceptable use of AI tools by employees — new agentic capabilities, autonomous task execution, multi-model data sharing, or shadow AI risks.
+- **Vendor Contract & IP Risk**: New AI features that touch IP ownership, output licensing, indemnification exposure, or terms-of-service changes that affect enterprise agreements.
+- **Ethics & Responsible AI**: Model behavior changes, bias disclosures, safety refusals, autonomous weapons / surveillance stances, or public commitments that affect how vendors align with enterprise ethics frameworks.
+- **Regulatory Exposure**: Developments that increase or decrease exposure under EU AI Act, FDA SaMD guidance, EEOC AI hiring rules, FTC AI regulations, or sector-specific compliance requirements.
+
+Format per item:
+`[Lens] — [What happened] on [date]. [Why it matters for Legal/Privacy/OEC in 1 sentence.]`
+
+If no material implications this week: write "No material Legal, Privacy, or OEC developments this week."
+
+**Tone:** Factual and risk-aware. Not alarmist. Surface the signal — let Legal/OEC draw the conclusion. Never speculate on legal liability. If uncertain, flag it as a "watch item" rather than a finding.
+
+Example:
+```
+## Legal, Privacy & OEC Implications
+
+**Data Privacy & HIPAA** — Microsoft Copilot Cowork launched on March 9, 2026 with multi-step autonomous task execution across Outlook, Teams, and Excel. Enterprises should verify whether Cowork's cross-app data access is covered under existing Microsoft BAA agreements and confirm PHI handling scope before enabling for clinical users.
+
+**Employee AI Use Policy** — OpenAI GPT-5.4 now executes autonomous computer-use tasks (75% OSWorld) as of March 5, 2026. Agentic AI tools that can take actions on behalf of employees — file creation, form submission, browser automation — may require acceptable-use policy updates to define authorization boundaries.
+
+**Ethics & Responsible AI** — Anthropic's public refusal to permit Claude for mass surveillance and autonomous weapons use (March 5–6, 2026) creates a visible vendor alignment signal. Enterprises with ethics board requirements or responsible AI policies may find Anthropic's posture increasingly documentable for governance purposes.
+
+**Vendor Contract & IP Risk** — No material developments this week.
+
+**Regulatory Exposure** — California AG issued formal demand to xAI on deepfake content generation (March 7, 2026). Enterprises using Grok should review their acceptable-use terms in light of ongoing state-level AI content enforcement.
+```
+
 ### Step 4: Assemble Final Brief
 
 **Full mode output structure** (in order):
@@ -188,8 +248,9 @@ Rules:
 3. Company Updates — full sections for changed players only; one-liner [NO CHANGE] for unchanged players
 4. Regulatory & Policy Tracker — delta only; carry forward [PENDING] items with status
 5. Benchmark Tracker — update changed rows only; carry forward unchanged scores with "—" in Updated column
-6. Watchlist Next Week — resolve last week's items first, then add new ones
-7. Sources
+6. Legal, Privacy & OEC Implications — always included in full mode; include in single-player mode if relevant
+7. Watchlist Next Week — resolve last week's items first, then add new ones
+8. Sources
 
 **CIO Narrative format:**
 
@@ -270,6 +331,7 @@ See [references/run-prompt-template.md](references/run-prompt-template.md)
 - One blank line between major blocks inside each player section
 - Healthcare / Med-Tech relevance must be included for every player — never skip
 - Regulatory Tracker must always appear in full mode, even if result is "No material developments this week."
+- Legal, Privacy & OEC section must always appear in full mode, even if result is "No material developments this week."
 - Benchmark scores must cite source and date — never include unverified scores
 
 ## Anti-Patterns
