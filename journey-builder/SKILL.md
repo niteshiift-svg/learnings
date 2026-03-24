@@ -217,9 +217,39 @@ STAGE [N] — [Stage Name]
 
 ---
 
-### Step 5: Journey Summary
+### Step 5: Summary Table + Journey Summary
 
-After all stages, produce a summary block:
+Produce the summary table **first** — before the detailed stage blocks are re-shown. The table is the teaser: the reader gets the full journey at a glance, then the stage blocks provide the detail behind each cell. Stakeholders who don't need the full detail can stop at the table.
+
+**Output order for Phase 1:**
+1. Summary table ← always first
+2. Detailed stage blocks ← the "why" behind each cell
+3. Journey Summary block ← metadata + MoTs
+
+**Summary table format:**
+
+Stages as columns, key rows as rows. Content must be brief — one short sentence or phrase per cell. Designed to be portable: paste into a slide, share with a team, use as a workshop reaction artifact.
+
+```
+| | Stage 1: [Name] | Stage 2: [Name] | Stage 3: [Name] | ... |
+|---|---|---|---|---|
+| **Actions** | [Key action — 5-8 words] | ... | ... | ... |
+| **Touchpoints** | [Key touchpoint(s)] | ... | ... | ... |
+| **Thought** | "[Most diagnostic quote]" | ... | ... | ... |
+| **Emotion** | [Grade] | ... | ... | ... |
+| **Moment of Truth** | ✅ Yes / — | ... | ... | ... |
+| **Process Owner** | [Role] | ... | ... | ... |
+```
+
+**Table rules:**
+- Every stage gets a column — no stages omitted
+- Thought row: most diagnostic quote from the stage — the one that would land in a leadership meeting
+- Emotion: grade only — Positive / Neutral / Frustrated / 🔴 Broken (🔴 makes risk visually scannable)
+- MoT: ✅ Yes or — (dash) — never write "No"
+- All cell content one line — brevity is the point
+- Do not add Evidence Grade or Pain/Gap rows in Phase 1 — those are Phase 2 additions
+
+**Journey Summary block (after stage blocks):**
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -245,7 +275,7 @@ Moments of Truth identified: [N]
 > "Your Phase 1 journey map is ready — all stages currently at Assumption grade.
 >
 > What next?
-> 1. **Enrich** — bring in VoC data, NPS, research, or tickets to evidence-grade each stage (Phase 2)
+> 1. **Enrich** — bring in VoC data, tech shifts, market context, or org specifics to make this journey specific to your current reality (Phase 2)
 > 2. **Adjust** — edit any stage before moving forward
 > 3. **Save** — export this map to a markdown file
 > 4. **Add to sample journeys** — save as a reusable reference example for this persona/product combination
@@ -257,107 +287,164 @@ Moments of Truth identified: [N]
 
 ## PHASE 2 — ENRICH
 
-### Step 1: Accept VoC / Data Input
+> **Design intent:** Phase 2 is about grounding the base journey in reality — not designing solutions. It takes VoC and market context and evolves the assumption-grade draft into an evidence-grounded current state, with pains and gaps surfacing naturally from the evidence. Phase 2 is strictly problem-focused. Solution design — including any technology overlay — belongs after Phase 3 has diagnosed and prioritised the gaps. Overlaying tech on a journey before the problems are understood is solution-first thinking and produces journeys no one can act on.
 
-If not already provided, ask:
+---
 
-> "Share the data you want to overlay on this journey. I'll accept any format:
-> - Raw verbatims or quotes from user interviews
-> - NPS themes or open-text responses
-> - Support ticket categories or top issues
-> - Survey results — quantitative or qualitative
-> - Session analytics signals (drop-off points, time-on-task, error rates, funnel conversion)
-> - Stakeholder observations or field research notes
+### Step 1: Offer Enrichment Inputs
+
+After Phase 1, ask:
+
+> "Your base journey is ready. Do you want to ground it in reality before we diagnose gaps?
 >
-> Paste whatever you have — I'll structure it and map it to the right stages."
+> Bring in any of the following:
+> - **VoC & Research** — interviews, NPS verbatims, support tickets, survey data, analytics drop-offs, field notes
+> - **Market Context** — what competitors now offer, what adjacent industries have raised the bar to, regulatory shifts that change customer behaviour
+>
+> Share what you have — any format. I'll map each signal to the right stage and surface pains and gaps as the evidence builds."
 
-If entry mode was Research-Led (flagged in Phase 1) → user likely has data ready. Accept immediately without re-asking.
+**Rules:**
+- Accept any combination of VoC and market inputs — do not force a format
+- If entry mode was Research-Led → VoC is likely ready; accept immediately
+- If user mentions tech shifts or org initiatives at this stage → note them but do not apply them here. Say: *"That's valuable context for solution design — I'll hold it. For now let's get the current reality right first, then Phase 3 will tell us where to focus."*
 
 ---
 
 ### Step 2: Map Signals to Stages
 
-For each VoC signal or data point:
+For each input received:
 - Identify which stage it belongs to
-- Classify as: Pain Point / Positive Signal / Drop-off Risk / Behavioral Data
-- Note source type: Interview / NPS / Ticket / Survey / Analytics
+- Classify as: Pain Point / Positive Signal / Drop-off Risk / Expectation Gap / Behavioural Data
+- Note source type: Interview / NPS / Ticket / Survey / Analytics / Market / Competitive
 
-**Signal mapping rule:** Map to the stage where the friction **originates**, not where the complaint **surfaces**.
+**Signal mapping rule:** Map every signal to the stage where friction **originates**, not where the complaint **surfaces**.
 
-Example: User reports "I didn't know where my sample was" in a post-results NPS survey → maps to the Shipping/Lab stage, not the Results stage, because that's where the information gap begins.
+Example: Patient complains post-resolution that "no one followed up" → maps to Stage 7 (Back to Monitoring), not Stage 5 (Support Interaction), because the absence of follow-up originates there.
 
-If a signal clearly spans multiple stages, assign to the earliest stage it affects.
+If a signal spans multiple stages, assign to the earliest stage it affects.
 
 ---
 
-### Step 3: Update Evidence Tags
+### Step 3: Evolve Current State + Surface Pains & Gaps
 
-For each stage, update the Evidence Grade based on data provided:
+For each stage, update content based on reality inputs. Then surface the pain or gap the evidence reveals.
+
+**Output format — compact, not a full re-render:**
+
+Always lead with the **Change Log table** across all stages. Then ask which stage(s) the user wants in more detail.
+
+**Change Log table:**
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CURRENT STATE — ENRICHED (Track A)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+| Stage | Evidence Grade | What Changed | Pain / Gap Surfaced |
+|---|---|---|---|
+| [N] — [Name] | Evidence / Partial / Assumption | [1-line summary of what updated] | [pain or gap the evidence revealed] |
+...
+
+Pains & Gaps — Full List
+  · Stage [N]: [Gap name] — [1-line description]
+  · Stage [N]: [Gap name] — [1-line description]
+  ...
+```
+
+Then ask:
+> "Which stage(s) do you want in more detail? Pick a number, or say 'all'. Or reply 'save' to export the full updated journey."
+
+**Stage detail view (on request — middle tier):**
+
+```
+Stage [N] — [Stage Name]
+Evidence Grade: [Evidence / Partial / Assumption]
+
+What changed:
+· [Field] — [what updated and why, in one line]
+· [Field] — [what updated and why, in one line]
+
+Pain / Gap:
+[1–2 sentences — what the evidence reveals is broken or missing at this stage]
+
+Key signal: [the VoC or market input that drove the update]
+```
+
+**Evidence Grade criteria:**
 
 | Tag | Criteria |
 |---|---|
 | **Evidence** | 2+ independent data sources confirm the experience at this stage |
 | **Partial** | 1 data source, or data is indirect / inferential |
-| **Assumption** | No data — based on domain knowledge or best practice only |
+| **Assumption** | No data — stage unchanged from Phase 1 |
 
 **Source independence rule:** Two sources are independent if they come from different research methods. Two NPS verbatims from the same survey = one source. NPS verbatim + support ticket category = two independent sources.
 
-Flag Assumption stages explicitly after enrichment:
-*"Stage [N] — [Name] remains at Assumption. No data was provided for this stage. Flag for research before acting on gaps here."*
-
 ---
 
-### Step 4: Output Evidence-Layered Map
+### Step 4: Enrichment Summary
 
-Re-output each stage with evidence annotations added below the existing rows:
-
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-STAGE [N] — [Stage Name]
-🏷  Evidence Grade: [Evidence / Partial / Assumption]
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-[All Phase 1 rows retained as-is]
-
-📊  Data Signals
-    · [Signal] — Source: [Interview / NPS / Ticket / Survey / Analytics]
-    · [Signal] — Source: [...]
-
-⚠️  Assumption Flag    [only if grade = Assumption]
-    No data backing this stage. Validate before drawing conclusions or prioritizing changes here.
-```
-
----
-
-### Step 5: Enrichment Summary
-
-After all stages, produce an updated summary:
+After Track A (and Track B if run), produce:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ENRICHMENT SUMMARY — PHASE 2
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Evidence:       [N] stages
-Partial:        [N] stages
-Assumption:     [N] stages — flagged for validation
+Inputs used:     [VoC / Market Context / both]
 
-Strongest evidence:   Stage [X] — [Name], Stage [Y] — [Name]
-Weakest coverage:     Stage [A] — [Name], Stage [B] — [Name] → prioritize research here
+Evidence:        [N] stages
+Partial:         [N] stages
+Assumption:      [N] stages — no data, flag for research before acting
 
-Data sources used: [list]
+Pains & Gaps identified: [N total]
+  · Stage [N]: [Gap name] — [1-line description]
+  · Stage [N]: [Gap name] — [1-line description]
+  ...
+
+Strongest evidence:  Stage [X], Stage [Y]
+Research needed:     Stage [A] — still at Assumption, validate before Phase 3
+
+Narrative:
+[2–4 sentences in plain language. Lead with the most significant shift
+from the base journey. State what it implies — not what changed, but what
+it means for how the org should think about this journey.
+Something a PM or architect can quote in a meeting.]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
+**Updated summary table — always produce FIRST, before the Change Log and Enrichment Summary:**
+
+The enriched table is the primary artifact of Phase 2 — it goes at the top so the reader sees the full enriched journey at a glance before any detail. Re-output the Phase 1 table with two new rows added. This is the handoff artifact: what a team takes into a workshop, slides, or Phase 3 prioritisation.
+
+```
+| | Stage 1: [Name] | Stage 2: [Name] | Stage 3: [Name] | ... |
+|---|---|---|---|---|
+| **Actions** | [from Phase 1] | ... | ... | ... |
+| **Touchpoints** | [from Phase 1] | ... | ... | ... |
+| **Thought** | [from Phase 1] | ... | ... | ... |
+| **Emotion** | [from Phase 1] | ... | ... | ... |
+| **Moment of Truth** | [from Phase 1] | ... | ... | ... |
+| **Process Owner** | [from Phase 1] | ... | ... | ... |
+| **Evidence Grade** | Evidence / Partial / Assumption | ... | ... | ... |
+| **Pain / Gap** | [1-line — what's broken or missing here] | ... | ... | ... |
+```
+
+**Phase 2 table rules:**
+- Evidence Grade row: use colour signal in text — 🟢 Evidence / 🟡 Partial / 🔴 Assumption
+- Pain / Gap row: one tight sentence per cell — the gap in plain language, not EA jargon
+- Stages with no VoC data: Pain/Gap cell = "No data — validate before acting"
+- This table is the primary handoff artifact into Phase 3
+
 ---
 
-### Step 6: Offer Next Steps (Phase 2)
+### Step 5: Offer Next Steps (Phase 2)
 
-> "Your journey map is now evidence-layered.
+> "Your journey is now grounded in reality — pains and gaps identified.
 >
 > What next?
-> 1. **Save** — export enriched map to markdown
-> 2. **Adjust** — add more data or correct any stage
-> 3. **Next phase** — gap and opportunity analysis (Phase 3 — coming soon)
+> 1. **Save** — export enriched journey to markdown
+> 2. **Add more data** — bring in additional VoC or market signals
+> 3. **Diagnose** — structured gap analysis, needs vs. wants, priority scoring (Phase 3)
 >
 > Just reply with a number or tell me what you need."
 
@@ -393,6 +480,10 @@ Confirm after saving: *"Saved to [filename]"*
 7. **Opportunities row is Phase 3 only** — never generated in Phase 1 or 2.
 8. **Evidence grade is honest** — never upgrade a stage to Evidence without 2+ independent sources. Never silently leave an Assumption stage untagged after Phase 2.
 9. **VoC signals map to origin, not symptom** — always map signals to where the friction begins, not where the complaint surfaced.
+12. **Phase 2 is strictly problem-focused — no solution design** — VoC and market context ground the journey in reality and surface pains and gaps. Technology overlays, GenAI ideas, and org initiatives do not belong in Phase 2. If the user raises them, acknowledge and defer: *"Hold that for after Phase 3 — let's make sure we understand the problem first."*
+13. **Pains and gaps surface in Phase 2 — they are not deferred to Phase 3** — gaps emerge naturally from VoC and market evidence. List them explicitly in the Enrichment Summary. Phase 3 structures and prioritises them — it does not discover them.
+14. **Phase 2 output leads with the Change Log table — not a full re-render** — always show the compact table first. Offer stage detail view on request. Full journey re-output only on save.
+15. **Enrichment narrative is mandatory** — always end the Enrichment Summary with a 2–4 sentence narrative. Lead with the most significant reality shift. State what it implies. Never write as bullets.
 10. **Known recall or safety issue must be flagged** — if web research surfaces a known recall, safety alert, or regulatory correction for the product being mapped, flag it with a ⚠️ Safety Context note in the relevant stage(s). Never suppress this.
 11. **Never auto-save to reference files** — do not add content to `abbott-reference.md` or any reference file without explicit user confirmation. Reference files are updated intentionally, not automatically.
 
@@ -422,6 +513,9 @@ Confirm after saving: *"Saved to [filename]"*
 - Never skip stage confirmation — generating deep content before the stage list is approved wastes both turns
 - Never invent back-stage actors or systems not mentioned by the user or in reference files
 - Never summarize VoC signals in a way that upgrades an Assumption stage without meeting the 2-source rule
+- Never return the same Phase 1 journey from Phase 2 with only evidence tags added — content must be updated where inputs support it
+- Never apply enrichment vectors the user didn't select
+- Never omit 🔄 / ✨ change markers when content is updated in Phase 2
 - Never open with "I'm excited to" or generic preamble — lead with the welcome message exactly as written
 - Never auto-save journey content to reference files — always ask the user first
 - Never ignore a "user has data" signal — always surface it and let the user decide when to use it
