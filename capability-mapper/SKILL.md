@@ -6,7 +6,7 @@ description: Generate structured business capability maps for any domain using a
 # Capability Mapper
 
 **Author:** Nitesh Luthra
-**Version:** 1.3
+**Version:** 1.4
 
 ## Design Principle
 
@@ -31,6 +31,9 @@ Activate when the user says:
 - Pastes or uploads a customer journey map (image, text, table, bullets)
 - "here's our journey", "map capabilities for this journey", "what capabilities support this stage"
 - "map stage [N] of this journey"
+- Pastes a Gap Inventory from Journey Builder Phase 3
+- "assess capabilities", "capability assessment", "what capabilities are missing"
+- "here's my gap inventory", "carry this into capability mapper"
 
 ---
 
@@ -42,19 +45,22 @@ When the skill is triggered, always open with:
 >
 > I'll help you map capabilities for any business domain using a Porter-aligned value chain — split into Primary (value-creating) and Support (enabling) activities. Each capability comes with a definition, digital intensity rating, differentiator classification, and a business vs. IT lens.
 >
-> **Two ways to start:**
+> **Three ways to start:**
 >
 > **Option A — Name a domain:**
 > - A business function → `Legal`, `Finance`, `HR`, `Marketing`
 > - A platform or product domain → `E-Commerce Checkout`, `Digital Health Platform`, `B2B Commerce`
 > - An industry value chain → `Healthcare Diagnostics`, `Medical Device Manufacturing`, `Retail Pharmacy`
 > - A cross-functional program → `Customer Experience`, `AI & Data`, `Supply Chain`
-> - A sub-domain → `Privacy & Compliance`, `Field Service Operations`, `Content Management`
 >
 > **Option B — Paste or upload a journey:**
 > - Drop in a customer journey map (image, screenshot, table, bullets, or Miro/Figma paste)
-> - Or describe your journey in plain text — I'll extract the stages and touchpoints
-> - I'll play it back to confirm, then you pick which stage(s) to map
+> - I'll extract the stages, confirm them, then map capabilities per stage
+>
+> **Option C — Paste a Gap Inventory (from Journey Builder Phase 3):**
+> - Drop in the Gap Inventory table — I'll assess each capability need against current state
+> - Outputs: what exists, what's missing, what's underdeveloped — in a clean table
+> - Leads directly into Initiative Mapper for build/buy/partner decisions
 >
 > Just start and I'll detect which mode to use."
 
@@ -72,6 +78,9 @@ When the skill is triggered, always open with:
 **MODE B — Journey-first** (user pastes/uploads a journey map OR describes a journey in text)
 → Proceed to Step 1J (journey extraction and playback)
 
+**MODE C — Gap Inventory-first** (user pastes a Journey Builder Phase 3 Gap Inventory)
+→ Proceed to Step 1C (gap inventory intake and context questions)
+
 **Detection signals for Mode B:**
 - User pastes an image of a journey map
 - User pastes a table, bullet list, or text that describes stages and touchpoints
@@ -79,7 +88,139 @@ When the skill is triggered, always open with:
 - User uploads a screenshot from Miro, Figma, PowerPoint, or similar
 - Journey structure is detectable: stages + touchpoints + consumer/customer actions are present
 
-**If ambiguous:** default to asking — *"Are you starting from a domain name or a customer journey map?"*
+**Detection signals for Mode C:**
+- User pastes a table with columns: Gap ID / Stage / Gap / Capability Need / Priority
+- User says "here's my gap inventory", "carry this from journey builder", "assess capabilities", "capability assessment"
+- Input contains Gap IDs (G-01, G-02...) and capability need names alongside journey stage references
+- Input is structured as a list of gaps with mapped capability needs — not a journey stage list
+
+**If ambiguous:** default to asking — *"Are you starting from a domain name, a journey map, or a Gap Inventory from Journey Builder?"*
+
+---
+
+### STEP 1C: Gap Inventory Mode — Intake + Context (Mode C only)
+
+**Step 1C-1: Confirm what was received**
+
+Play back the Gap Inventory in plain language before doing anything:
+
+> "I can see this is a Gap Inventory from Journey Builder — [N] gaps, [N] capability needs identified.
+>
+> I'll assess each capability against current state: what exists, what's missing or underdeveloped, and what the gap means.
+>
+> Two quick questions before I run the assessment:
+> 1. **Org context** — which organisation or business unit is this for? (Shapes what I assume exists today)
+> 2. **Lens** — Business, IT, or both?
+>    - Business → process, ownership, governance gaps
+>    - IT → systems, tooling, data, platform gaps
+>    - Both → recommended when gaps span agent tooling, digital self-service, or customer platforms"
+
+**Step 1C-2: Run assessment after context confirmed**
+
+Do not generate any output before org context and lens are confirmed. If the user skips these, use reasonable defaults and flag them explicitly in the output header.
+
+---
+
+### STEP 2C: Capability Assessment Table (Mode C only)
+
+Output the L1 assessment as a table. Always lead with the table — no prose before it.
+
+**Output format:**
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CAPABILITY ASSESSMENT
+Journey: [Journey name from Gap Inventory]
+Org: [Org context] · Lens: [Business / IT / Both]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+| Capability | Status | Gap | Priority |
+|---|---|---|---|
+| [Capability name] | 🔴 Missing / 🟡 Partial / 🟢 Present | [One tight sentence — what's absent or underdeveloped] | [P1 / P1-R / P2 / P3] |
+...
+
+🔴 Missing: [N] · 🟡 Partial: [N] · 🟢 Present: [N]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+**Status definitions:**
+
+| Status | Meaning |
+|---|---|
+| 🔴 Missing | Capability does not exist — needs to be built or acquired |
+| 🟡 Partial | Capability exists but not at the maturity this journey requires |
+| 🟢 Present | Capability exists and meets baseline — may have limited constraints |
+
+**Table rules:**
+- One row per capability need — do not merge multiple needs into one row
+- Gap column: one tight sentence — what's absent or broken, not what should be built
+- Priority: carry from Gap Inventory (P1 / P1-R / P2 / P3) — do not reassign
+- Always show the summary count (🔴/🟡/🟢) after the table
+- Never add prose before the table — the table leads
+
+Then ask:
+> "Which capability do you want drilled to L2? Name it, or say 'all P1s' to start with the highest priority."
+
+---
+
+### STEP 3C: L2 Drill Table (Mode C — on request)
+
+For each capability the user requests, produce an L2 breakdown in table format.
+
+**Output format:**
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+L2 — [Capability Name]    [🔴 Missing / 🟡 Partial / 🟢 Present]
+⚡ [High/Med/Low] · 🎯 [Edge/Core/Commodity] · 👁 [Business/IT/Dual]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+| Sub-Capability | Status | Gap | Type |
+|---|---|---|---|
+| [Sub-capability name] | 🔴 / 🟡 / 🟢 | [One sentence — what's absent or broken] | Core / Edge / Commodity |
+...
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+**L2 table rules:**
+- 3–6 sub-capabilities per capability — do not over-generate
+- Gap column: same discipline as L1 — one tight sentence, what's broken not what to build
+- Type: Edge = differentiating, Core = essential, Commodity = table stakes
+- Status uses same 🔴/🟡/🟢 scale as L1
+- After each L2, ask: "Want another L2 drill, or ready for the narrative?"
+
+---
+
+### STEP 4C: Assessment Narrative (Mode C only)
+
+After the assessment table (and any L2 drills requested), produce a short narrative.
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ASSESSMENT NARRATIVE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2–4 sentences. Write for a senior leader.
+Lead with what the pattern of missing/partial capabilities reveals
+about the org's current posture — not a list of what's absent.
+Connect to commercial stakes: what's at risk if these gaps aren't closed?
+State the clearest investment priority plainly.
+Plain language, no consultant-speak, quotable in a leadership meeting.]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+---
+
+### STEP 5C: Offer Next Steps (Mode C only)
+
+> "Assessment complete — [N] missing, [N] partial, [N] present across [N] capability needs.
+>
+> What next?
+> 1. **Drill another capability** — L2 breakdown for any Missing or Partial
+> 2. **Save** — export assessment to markdown
+> 3. **Initiative Mapper** — turn these gaps into investment initiatives with build/buy/partner recommendations and sequencing
+> 4. **Back to Journey Builder** — return to Phase 3 or add more VoC data
+>
+> Just reply with a number or tell me what you need."
 
 ---
 
@@ -577,3 +718,14 @@ Adjust if: Your org owns a proprietary payment stack — Payment Processing shif
 - Never start mapping before stage scope is confirmed by the user
 - Never fabricate journey stages or touchpoints not visible in the input
 - Never treat a journey description as a domain name — detect Mode B and route correctly
+
+**Mode C — Gap Inventory specific:**
+- Never generate a full L1 capability map from a Gap Inventory — Mode C produces a targeted assessment, not a domain map
+- Never reassign priority tiers from the Gap Inventory — carry P1/P2/P3 exactly as received from Journey Builder Phase 3
+- Never put prose before the assessment table — table always leads
+- Never merge two capability needs into one row — each gets its own row
+- Never expand Gap column into solution design — Gap describes what's broken, not what to build
+- Never skip org context and lens questions — they calibrate the assessment
+- Never produce L2 without being asked — offer it, don't auto-generate
+- Never name a capability as a technology (e.g. "Chatbot", "AI Co-pilot") — name the business function
+- Assessment narrative is mandatory — never end Mode C without it
