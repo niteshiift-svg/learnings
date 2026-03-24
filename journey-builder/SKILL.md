@@ -6,7 +6,7 @@ description: Build structured customer journey maps grounded in CX and EA practi
 # Journey Builder
 
 **Author:** Nitesh Luthra
-**Version:** 1.1
+**Version:** 2.0
 
 ## Design Principle
 
@@ -405,10 +405,12 @@ Strongest evidence:  Stage [X], Stage [Y]
 Research needed:     Stage [A] — still at Assumption, validate before Phase 3
 
 Narrative:
-[2–4 sentences in plain language. Lead with the most significant shift
-from the base journey. State what it implies — not what changed, but what
-it means for how the org should think about this journey.
-Something a PM or architect can quote in a meeting.]
+[2–4 sentences. Write for a senior leader, not a product team.
+Lead with the single most significant shift the evidence reveals —
+not a list of what changed, but what it means for the business.
+Connect to commercial stakes: retention, safety exposure, competitive position.
+Plain language, no jargon. Quotable in a leadership meeting.
+Never summarise the gap list in prose — the tables do that.]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -450,6 +452,201 @@ The enriched table is the primary artifact of Phase 2 — it goes at the top so 
 
 ---
 
+## PHASE 3 — DIAGNOSE
+
+> **Design intent:** Phase 3 takes the pains and gaps surfaced by Phase 2 and produces a structured diagnostic — not a solution design. It tells the team which gaps are confirmed vs. assumed, which are critical vs. moderate, which to act on now vs. validate first, and what capability needs must exist for the gaps to be addressed. The output is a standalone diagnostic report and a structured Gap Inventory that feeds directly into Capability Mapper.
+
+---
+
+### Step 1: Confirm Input
+
+Phase 3 requires a Phase 2 enriched map with at least one confirmed pain or gap. If Phase 2 has not been run:
+
+> "Phase 3 needs an enriched journey to work from. Do you want to run Phase 2 first, or paste your existing gaps and evidence grades directly?"
+
+Accept pasted gaps if the user has them outside the skill. Map them to stages before proceeding.
+
+---
+
+### Step 2: Build the Gap Heatmap
+
+For each gap from Phase 2, assess:
+- **Severity** — patient/business impact if the gap remains unaddressed: Critical / High / Medium / Low
+- **Confidence** — evidence grade from Phase 2: 🟢 Confirmed / 🟡 Partial / 🔴 Assumption
+
+Derive the Action for each gap from the combination of Severity and Confidence:
+
+| Severity | Confidence | Action |
+|---|---|---|
+| Critical / High | 🟢 Confirmed | Act now |
+| Critical / High | 🟡 Partial | Validate fast, design in parallel |
+| Critical | 🔴 Assumption | Research now — severity too high to wait |
+| Medium / Low | 🔴 Assumption | Hold — validate before investing |
+
+**Safety rule:** If a gap carries patient harm risk, always assign Critical severity regardless of evidence grade. Critical + 🔴 = Research now, never Hold.
+
+**Output:**
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+GAP HEATMAP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+| Gap | Stage | Severity | Confidence | Action |
+|---|---|---|---|---|
+| [Gap name] | [N] | [Critical/High/Medium] | [🟢/🟡/🔴] | [Act now / Validate fast, design in parallel / Research now / Hold] |
+...
+```
+
+---
+
+### Step 3: Fix to Compete vs. Fix to Lead
+
+Classify each gap as **Fix to Compete** or **Fix to Lead**:
+
+- **Fix to Compete** — the org is below the bar. Patients expect this; competitors likely offer it. Fixing it stops churn and closes a parity deficit. Not fixing it is visible and punishing.
+- **Fix to Lead** — the org is at the bar. Fixing this creates a competitive advantage, drives loyalty, and generates word-of-mouth. No competitor does it consistently well yet.
+
+**Rule:** When in doubt, assign Fix to Compete. Only assign Fix to Lead when the gap addresses something no competitor currently does well, or where closing it creates loyalty uplift beyond baseline satisfaction.
+
+**Output:**
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FIX TO COMPETE VS. FIX TO LEAD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+| Type | Gap | Stage | So what |
+|---|---|---|---|
+| Fix to Compete | [Gap] | [N] | [Why this is a parity deficit — what's at stake if it stays broken] |
+| Fix to Lead | [Gap] | [N] | [Why closing this creates competitive advantage] |
+...
+```
+
+---
+
+### Step 4: Priority Scoring
+
+Score each gap on Impact and Effort. Derive Priority Tier.
+
+| Dimension | Scale |
+|---|---|
+| **Impact** | High / Medium / Low — based on severity + quadrant |
+| **Effort** | High / Medium / Low — estimated org effort to close the gap |
+| **Evidence** | 🟢 / 🟡 / 🔴 — carried from Phase 2 |
+
+**Priority Tier logic:**
+- **P1** — High impact + Confirmed evidence → act now
+- **P1-R** — Critical impact + no/low evidence → research now before investing
+- **P2** — High impact + Partial evidence → design in parallel with P1
+- **P3** — Medium impact + Assumption grade → hold until evidence warrants
+
+**Output:**
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PRIORITY SCORING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+| Gap | Stage | Impact | Effort | Evidence | Priority |
+|---|---|---|---|---|---|
+| [Gap] | [N] | High/Med/Low | High/Med/Low | 🟢/🟡/🔴 | P1/P1-R/P2/P3 |
+...
+```
+
+---
+
+### Step 5: Gap Inventory — Capability Mapper Handoff
+
+Map each gap to the capability need(s) required to close it. This is the structured handoff into Capability Mapper — which assesses current maturity vs. required maturity against each capability need.
+
+**Output:**
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+GAP INVENTORY — CAPABILITY MAPPER HANDOFF
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Gap ID   Stage   Gap                    Capability Need                  Priority
+─────────────────────────────────────────────────────────────────────────────────
+G-[NN]   S[N]    [Gap name]             [Capability needed to close it]  [P1/P2/P3]
+...
+
+→ [N] capability needs identified. Ready to open Capability Mapper.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+**Capability naming rule:** Name capabilities as business functions, not technology solutions. "Patient Digital Self-Service" not "Chatbot." "Agent Enablement & Tooling" not "AI Co-pilot." Technology is a solution — Capability Mapper assesses whether the capability exists, not what tool delivers it.
+
+---
+
+### Step 6: Diagnostic Narrative + Recommended Next Steps
+
+Always end the Phase 3 report with a narrative and a next steps table. Both are mandatory.
+
+**Diagnostic Narrative:**
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DIAGNOSTIC NARRATIVE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2–4 sentences. Write for a senior leader — not a product review.
+Tell the story of what the gaps reveal about the org, not the customer.
+What kind of company is showing up at these moments? What is commercially
+at stake if the pattern doesn't change? End with a clear, direct
+investment direction. Plain language, confident tone, no consultant-speak.
+The tables carry the detail — the narrative carries the so-what.]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+**Recommended Next Steps:**
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RECOMMENDED NEXT STEPS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+| Priority | Action | Owner |
+|---|---|---|
+| P1 — Act now | [Specific action tied to a confirmed gap] | [Team or role] |
+| P1-R — Research now | [What to validate and how — interviews, ticket analysis, etc.] | [Team or role] |
+| P2 — Design in parallel | [Design work that can run alongside P1] | [Team or role] |
+| P3 — Hold | [What to revisit and what evidence would trigger it] | — |
+| Next phase | Feed Gap Inventory into Capability Mapper — assess current vs. required maturity | EA / Architecture |
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+**Narrative rules:**
+- Write for a CxO or senior leadership audience — not a product team standup
+- Tell a story: what kind of company is showing up at these moments, and what is at stake if nothing changes
+- Lead with the strategic implication, not the tactical finding — "Abbott has invested in the device but not in what happens when it fails" not "Stage 5 has high AHT"
+- Connect gaps to commercial outcomes: retention, revenue, brand trust, safety exposure, competitive position
+- End with a clear directional statement on where investment should go and why now
+- Never summarise the gap list in prose — the tables do that. The narrative adds the so-what
+- Never write as bullets — always prose, 2–4 sentences, quotable in a leadership meeting
+
+**Next steps rules:**
+- Every P1 gap must appear in the table — no exceptions
+- P1-R always includes a suggested research method (interviews / ticket analysis / analytics)
+- Last row always points to Capability Mapper — this is the chain handoff
+- Owner column: name the team or role, never leave blank for P1 items
+
+---
+
+### Step 7: Offer Next Steps (Phase 3)
+
+> "Your diagnostic is ready — gaps prioritised, capability needs identified.
+>
+> What next?
+> 1. **Save** — export diagnostic report to markdown
+> 2. **Capability Mapper** — open Capability Mapper with the Gap Inventory as input
+> 3. **Add more data** — return to Phase 2 to validate Assumption-grade stages before acting
+> 4. **Role lenses** — see what this map means for Architect / PM / Marketer / Designer (Phase 4)
+>
+> Just reply with a number or tell me what you need."
+
+---
+
 ## Save
 
 **Standard save** (options 3 / Phase 2 option 1):
@@ -486,6 +683,11 @@ Confirm after saving: *"Saved to [filename]"*
 15. **Enrichment narrative is mandatory** — always end the Enrichment Summary with a 2–4 sentence narrative. Lead with the most significant reality shift. State what it implies. Never write as bullets.
 10. **Known recall or safety issue must be flagged** — if web research surfaces a known recall, safety alert, or regulatory correction for the product being mapped, flag it with a ⚠️ Safety Context note in the relevant stage(s). Never suppress this.
 11. **Never auto-save to reference files** — do not add content to `abbott-reference.md` or any reference file without explicit user confirmation. Reference files are updated intentionally, not automatically.
+16. **Phase 3 requires Phase 2 input** — never run Phase 3 without confirmed pains and gaps. If Phase 2 has not been run, prompt the user to either run it or paste their gaps directly.
+17. **Safety-critical gaps are always P1-Research minimum** — a gap with patient harm potential is never deprioritised regardless of evidence grade. Blind Spot + safety risk = P1-R, not P3.
+18. **Capability needs are business functions, not technologies** — name capabilities as what the org must be able to do, not the tool that delivers it. Phase 3 feeds Capability Mapper, not a solution backlog.
+19. **Diagnostic narrative is mandatory** — always end Phase 3 with a 2–4 sentence narrative. Lead with the single most significant finding. Never write as bullets.
+20. **Next steps table is mandatory** — every P1 gap must appear. Last row always points to Capability Mapper. Never leave P1 owner blank.
 
 ---
 
@@ -519,3 +721,8 @@ Confirm after saving: *"Saved to [filename]"*
 - Never open with "I'm excited to" or generic preamble — lead with the welcome message exactly as written
 - Never auto-save journey content to reference files — always ask the user first
 - Never ignore a "user has data" signal — always surface it and let the user decide when to use it
+- Never run Phase 3 without Phase 2 gaps as input — prompt to run Phase 2 or paste gaps first
+- Never name a capability as a technology (e.g. "Chatbot", "AI Co-pilot") — always name the business function it delivers
+- Never deprioritise a safety-critical gap regardless of evidence grade — Blind Spot + safety risk = P1-R minimum
+- Never omit the diagnostic narrative or next steps table from Phase 3 — both are mandatory
+- Never leave the Capability Mapper row out of the next steps table — it is the chain handoff
